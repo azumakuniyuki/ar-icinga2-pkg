@@ -1,0 +1,16 @@
+#  _      _                   ____   __      _       __     ___            _        
+# (_) ___(_)_ __   __ _  __ _|___ \ / /_ __ | | ____ \ \   / / |_ __ _ ___| | _____ 
+# | |/ __| | '_ \ / _` |/ _` | __) | || '_ \| |/ / _` | | / /| __/ _` / __| |/ / __|
+# | | (__| | | | | (_| | (_| |/ __/| || |_) |   < (_| | |/ / | || (_| \__ \   <\__ \
+# |_|\___|_|_| |_|\__, |\__,_|_____| || .__/|_|\_\__, | /_/   \__\__,_|___/_|\_\___/
+#                 |___/             \_\_|        |___/_/                            
+# backend-dbs (not implemented)
+- block:
+    - name: install-pkg | PostgreSQL modules should be installed
+      when: icinga2.backend == "pgsql"
+      yum: name=icinga2-ido-pgsql state=present
+
+    - name: install-pkg | MySQL modules should be installed
+      when: icinga2.backend == "mysql"
+      yum: name=icinga2-ido-mysql state=present
+  when: ansible_os_family == "RedHat"
