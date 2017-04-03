@@ -9,6 +9,6 @@
 icinga2:
   enabled: true
   started: true
-  usehttp: false    # not implemented
-  backend: false    # not implemented
+  nodes:
+    - 127.0.0.1
 

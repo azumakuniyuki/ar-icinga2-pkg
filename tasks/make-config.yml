@@ -16,6 +16,30 @@
   notify: Restart Icinga2
   shell: icinga2 feature enable command
 
-# Disabled features: api compatlog debuglog gelf graphite influxdb livestatus opentsdb perfdata statusdata syslog
-# Enabled features: checker command mainlog notification
-#
+- name: make-config | default monitoring should be disabled
+  notify: Restart Icinga2
+  template:
+    src:  etc/icinga2/conf.d/{{ item }}.conf.j2
+    dest: /etc/icinga2/conf.d/{{ item }}.conf
+  with_items:
+    - hosts
+    - services
+
+- name: make-config | /etc/icinga2/conf.d/nodes should be created
+  file:
+    path: /etc/icinga2/conf.d/nodes
+    mode: 0750
+    owner: icinga
+    group: icinga
+    state: directory
+
+- name: make-config | Directories in /etc/icinga2/conf.d/nodes should be exist
+  file:
+    path: /etc/icinga2/conf.d/nodes/{{ item }}
+    mode: 0750
+    owner: icinga
+    group: icinga
+    state: directory
+  with_items: "{{ icinga2.nodes }}"
+
+
