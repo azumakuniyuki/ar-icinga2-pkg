@@ -24,5 +24,9 @@
       with_items:
         - icinga2
         - nagios-plugins-all
+
+    # http://docs.ansible.com/ansible/expect_module.html
+    - name: install-pkg | Python egg for the expect module should be installed
+      pip: name=pexpect state=present
   when: ansible_os_family == "RedHat"
 
