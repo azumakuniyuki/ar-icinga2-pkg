@@ -10,5 +10,14 @@ icinga2:
   enabled: true
   started: true
   nodes:
-    - 127.0.0.1
+    - name: 127.0.0.1
+      file: 
+        - app
+        - commands
+        - downtimes
+        - groups
+        - hosts
+        - notifications
+        - services
+        - users
 

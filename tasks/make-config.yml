@@ -23,7 +23,10 @@
     dest: /etc/icinga2/conf.d/{{ item }}.conf
   with_items:
     - hosts
+    - commands
     - services
+    - templates 
+    - timeperiods
 
 - name: make-config | /etc/icinga2/conf.d/nodes should be created
   file:
@@ -35,11 +38,28 @@
 
 - name: make-config | Directories in /etc/icinga2/conf.d/nodes should be exist
   file:
-    path: /etc/icinga2/conf.d/nodes/{{ item }}
+    path: /etc/icinga2/conf.d/nodes/{{ item.name }}
     mode: 0750
     owner: icinga
     group: icinga
     state: directory
   with_items: "{{ icinga2.nodes }}"
+
+- name: make-config | Files in /etc/icinga2/conf.d/nodes should be deployed
+  notify: Restart Icinga2
+  template:
+    src:   etc/icinga2/conf.d/nodes/{{ item.0.name }}/{{ item.1 }}.conf.j2
+    dest: /etc/icinga2/conf.d/nodes/{{ item.0.name }}/{{ item.1 }}.conf
+    mode: 0640
+    owner: icinga
+    group: icinga
+  with_subelements: 
+    - "{{ icinga2.nodes }}"
+    - 'file'
+
+
+
+
+
 
 

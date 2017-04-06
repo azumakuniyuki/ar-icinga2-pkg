@@ -1,0 +1,64 @@
+//  _ ____ _____ ___   ___   _    __                   _               
+// / |___ \___  / _ \ / _ \ / |  / /__  ___ _ ____   _(_) ___ ___  ___ 
+// | | __) | / / | | | | | || | / / __|/ _ \ '__\ \ / / |/ __/ _ \/ __|
+// | |/ __/ / /| |_| | |_| || |/ /\__ \  __/ |   \ V /| | (_|  __/\__ \
+// |_|_____/_/(_)___(_)___(_)_/_/ |___/\___|_|    \_/ |_|\___\___||___/
+//                                                                     
+apply Service "ping4" {
+  import "generic-service"
+  check_command = "ping4"
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service "ping6" {
+  import "generic-service"
+  check_command = "ping6"
+  assign where host.address6 == "::1"
+}
+
+apply Service "ssh" {
+  import "generic-service"
+  check_command = "ssh"
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service for (disk => config in host.vars.disks) {
+  import "generic-service"
+  check_command = "disk"
+  vars += config
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service "icinga" {
+  import "generic-service"
+  check_command = "icinga"
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service "load" {
+  import "generic-service"
+  check_command = "load"
+
+  /* Used by the ScheduledDowntime apply rule in `downtimes.conf`. */
+  //vars.backup_downtime = "02:00-03:00"
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service "procs" {
+  import "generic-service"
+  check_command = "procs"
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service "swap" {
+  import "generic-service"
+  check_command = "swap"
+  assign where host.address == "127.0.0.1"
+}
+
+apply Service "users" {
+  import "generic-service"
+  check_command = "users"
+  assign where host.address == "127.0.0.1"
+}
+

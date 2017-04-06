@@ -1,0 +1,17 @@
+//  _ ____ _____ ___   ___   _    __                       
+// / |___ \___  / _ \ / _ \ / |  / /   _ ___  ___ _ __ ___ 
+// | | __) | / / | | | | | || | / / | | / __|/ _ \ '__/ __|
+// | |/ __/ / /| |_| | |_| || |/ /| |_| \__ \  __/ |  \__ \
+// |_|_____/_/(_)___(_)___(_)_/_/  \__,_|___/\___|_|  |___/
+//                                                         
+object User "hostmaster" {
+  import "generic-user"
+  display_name = "Hostmaster"
+  groups = [ "hostmasters" ]
+  email = "hostmaster"
+}
+
+object UserGroup "hostmasters" {
+  display_name = "Hostmaster Group"
+}
+
