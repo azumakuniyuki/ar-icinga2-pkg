@@ -22,6 +22,12 @@ apply Service "ssh" {
   assign where host.address == "127.0.0.1"
 }
 
+apply Service "smtp" {
+  import "generic-service"
+  check_command = "smtp"
+  assign where host.address == "127.0.0.1"
+}
+
 apply Service for (disk => config in host.vars.disks) {
   import "generic-service"
   check_command = "disk"
