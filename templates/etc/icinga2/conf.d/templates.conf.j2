@@ -43,6 +43,12 @@ template Service "client-service" {
   retry_interval = 30s
 }
 
+template Service "web-service" {
+  max_check_attempts = 2
+  check_interval = 5m
+  retry_interval = 1m
+}
+
 /*
  * Provides default settings for users. By convention all users should inherit
  * from this template.
