@@ -17,7 +17,6 @@ icinga2:
         - downtimes
         - groups
         - hosts
-        - notifications
         - services
         - users
 
