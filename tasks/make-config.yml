@@ -11,10 +11,17 @@
   changed_when: icinga2_disabled_features.rc > 0
   shell: icinga2 feature list | grep '^Disabled '
 
-- name: make-config | command feature should be enabled
-  when: "'command' in icinga2_disabled_features.stdout"
+- name: make-config | some features should be enabled
+  when: "'{{ item }}' in icinga2_disabled_features.stdout"
   notify: Restart Icinga2
-  shell: icinga2 feature enable command
+  shell: icinga2 feature enable {{ item }}
+  with_items:
+    - command
+    - livestatus
+    - compatlog
+    - perfdata
+    - statusdata
+    - syslog
 
 - name: make-config | default monitoring should be disabled
   notify: Restart Icinga2
@@ -27,6 +34,7 @@
     - services
     - templates 
     - timeperiods
+    - notifications
 
 - name: make-config | /etc/icinga2/conf.d/nodes should be created
   file:
