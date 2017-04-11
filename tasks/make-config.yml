@@ -23,7 +23,25 @@
     - statusdata
     - syslog
 
-- name: make-config | default monitoring should be disabled
+- name: make-config | Files in /etc/icinga2 should be deployed
+  notify: Restart Icinga2
+  template:
+    src:  etc/icinga2/{{ item }}.conf.j2
+    dest: /etc/icinga2/{{ item }}.conf
+  with_items:
+    - constants
+
+- name: make-config | Files in /etc/icinga2/scripts should be deployed
+  notify: Restart Icinga2
+  template:
+    src:  etc/icinga2/scripts/{{ item }}.j2
+    dest: /etc/icinga2/scripts/{{ item }}
+    mode: 0755
+    owner: root
+  with_items:
+    - send-service-alert-email
+
+- name: make-config | Files in /etc/icinga2/conf.d should be deployed
   notify: Restart Icinga2
   template:
     src:  etc/icinga2/conf.d/{{ item }}.conf.j2
