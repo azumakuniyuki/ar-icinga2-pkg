@@ -1,0 +1,37 @@
+#!/bin/sh
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+export LANG="C"
+
+STATUSSYMBOL=''
+EMAILSUBJECT=''
+MAILTEMPLATE=`cat <<TEMPLATE
+{
+  "alert": "$NOTIFICATIONTYPE",
+  "timestamp": "$LONGDATETIME",
+  "node": {
+    "hostname": "$HOSTALIAS",
+    "address": "$HOSTADDRESS"
+  },
+  "service": {
+    "name": "$SERVICEDESC",
+    "status": "$SERVICESTATE"
+  },
+  "response": "$SERVICEOUTPUT",
+  "comment": "$NOTIFICATIONCOMMENT"
+}
+
+TEMPLATE
+`
+
+if [ "X$NOTIFICATIONTYPE" = "XPROBLEM" ]; then
+    # Notification Type: PROBLEM
+    STATUSSYMBOL='X'
+
+elif [ "X$NOTIFICATIONTYPE" = "XRECOVERY" ]; then
+    # Notification Type: RECOVERY
+    STATUSSYMBOL='O'
+fi
+
+EMAILSUBJECT="[$STATUSSYMBOL] $HOSTDISPLAYNAME | $SERVICEDISPLAYNAME($SERVICESTATE)"
+/usr/bin/printf "%b" "$MAILTEMPLATE" | mail -s "$EMAILSUBJECT" $USEREMAIL
+

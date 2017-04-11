@@ -5,7 +5,6 @@
 //  \___\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
 //                                                      
 /* Command objects */
-
 object CheckCommand "ping4long" {
   command = [ PluginDir + "/check_ping", "-H", "$ping_address$" ]
   arguments = {
@@ -59,3 +58,24 @@ object NotificationCommand "mail-service-notification" {
     USEREMAIL = "$user.email$"
   }
 }
+
+object NotificationCommand "send-service-alert" {
+  command = [ SysconfDir + "/icinga2/scripts/send-service-alert-email" ]
+
+  env = {
+    NOTIFICATIONTYPE = "$notification.type$"
+    SERVICEDESC = "$service.name$"
+    HOSTALIAS = "$host.display_name$"
+    HOSTADDRESS = "$address$"
+    SERVICESTATE = "$service.state$"
+    LONGDATETIME = "$icinga.long_date_time$"
+    SERVICEOUTPUT = "$service.output$"
+    NOTIFICATIONAUTHORNAME = "$notification.author$"
+    NOTIFICATIONCOMMENT = "$notification.comment$"
+    HOSTDISPLAYNAME = "$host.display_name$"
+    SERVICEDISPLAYNAME = "$service.display_name$"
+    USEREMAIL = "$user.email$"
+  }
+}
+
+
