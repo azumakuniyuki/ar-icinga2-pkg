@@ -1,38 +1,55 @@
-Role Name
-=========
+Ansible Role: Icinga2
+================================================================================
+Install Icinga2 and nagios plugins from a package at CentOS 7 and build icinga2
+as an Agent-Less monitoring environment.
 
-A brief description of the role goes here.
+- Install icinga2 and Nagios Plugins
+- Deploy files into /etc/icinga2
 
 Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+--------------------------------------------------------------------------------
+No requirements.
 
 Role Variables
---------------
+--------------------------------------------------------------------------------
+These variables are defined in defaults/main.yml file for being removed and
+installed packages on each supported platform.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+icinga2:
+  enabled: true
+  started: true
+  contact:
+    useragent: hostmaster@example.com
+  nodes:
+    - name: 127.0.0.1
+      file: 
+        - app
+        - commands
+        - downtimes
+        - groups
+        - hosts
+        - services
+        - users
+```
 
 Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+--------------------------------------------------------------------------------
+None
 
 Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+--------------------------------------------------------------------------------
+```yaml
+- hosts: servers
+  roles:
+    - { role: azumakuniyuki.ar-icinga2-pkg }
+```
 
 License
--------
-
+--------------------------------------------------------------------------------
 BSD
 
 Author Information
-------------------
+--------------------------------------------------------------------------------
+[azumakuniyuki](http://nyaan.jp)
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
