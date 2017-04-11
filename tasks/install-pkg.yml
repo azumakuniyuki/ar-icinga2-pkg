@@ -24,6 +24,7 @@
       with_items:
         - icinga2
         - nagios-plugins-all
+        - nagios-plugins-nrpe
 
     # http://docs.ansible.com/ansible/expect_module.html
     - name: install-pkg | Python egg for the expect module should be installed
