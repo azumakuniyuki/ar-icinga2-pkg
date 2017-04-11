@@ -33,13 +33,13 @@ apply Service "smtp" {
   assign where host.address == "127.0.0.1"
 }
 
-apply Service "http://" for (e => cf in host.vars.http_hosts) {
-  import "generic-service"
-  check_command = "http"
-  vars += cf
-
-  // assign where host.address == "127.0.0.1"
-}
+// apply Service "http://" for (e => vhost in host.vars.http_hosts) {
+//   import "generic-service"
+//   check_command = "http"
+//   vars += vhost
+// 
+//   assign where host.address == "127.0.0.1"
+// }
 
 apply Service for (disk => cf in host.vars.disks) {
   import "generic-service"
