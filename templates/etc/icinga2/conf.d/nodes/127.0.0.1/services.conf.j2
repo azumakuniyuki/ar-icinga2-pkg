@@ -7,37 +7,52 @@
 apply Service "ping4" {
   import "generic-service"
   check_command = "ping4"
+
   assign where host.address == "127.0.0.1"
 }
 
 apply Service "ping6" {
   import "generic-service"
   check_command = "ping6"
+
   assign where host.address6 == "::1"
 }
 
 apply Service "ssh" {
   import "generic-service"
   check_command = "ssh"
+  vars.port = host.vars.ssh_port
+  
   assign where host.address == "127.0.0.1"
 }
 
 apply Service "smtp" {
   import "generic-service"
   check_command = "smtp"
+
   assign where host.address == "127.0.0.1"
 }
 
-apply Service for (disk => config in host.vars.disks) {
+apply Service "http://" for (e => cf in host.vars.http_hosts) {
+  import "generic-service"
+  check_command = "http"
+  vars += cf
+
+  // assign where host.address == "127.0.0.1"
+}
+
+apply Service for (disk => cf in host.vars.disks) {
   import "generic-service"
   check_command = "disk"
-  vars += config
+  vars += cf
+
   assign where host.address == "127.0.0.1"
 }
 
 apply Service "icinga" {
   import "generic-service"
   check_command = "icinga"
+
   assign where host.address == "127.0.0.1"
 }
 
@@ -53,18 +68,21 @@ apply Service "load" {
 apply Service "procs" {
   import "generic-service"
   check_command = "procs"
+
   assign where host.address == "127.0.0.1"
 }
 
 apply Service "swap" {
   import "generic-service"
   check_command = "swap"
+
   assign where host.address == "127.0.0.1"
 }
 
 apply Service "users" {
   import "generic-service"
   check_command = "users"
+
   assign where host.address == "127.0.0.1"
 }
 
