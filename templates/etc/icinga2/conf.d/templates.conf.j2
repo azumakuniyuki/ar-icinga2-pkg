@@ -27,6 +27,13 @@ template Host "client-host" {
   check_command = "hostalive"
 }
 
+template Host "another-host" {
+  max_check_attempts = 1
+  check_interval = 1h
+  retry_interval = 1m
+  check_command = "dummy"
+}
+
 /*
  * Provides default settings for services. By convention all services should
  * import this template.
@@ -41,6 +48,12 @@ template Service "client-service" {
   max_check_attempts = 5
   check_interval = 5m
   retry_interval = 30s
+}
+
+template Service "another-service" {
+  max_check_attempts = 2
+  check_interval = 1h
+  retry_interval = 5m
 }
 
 template Service "web-service" {
