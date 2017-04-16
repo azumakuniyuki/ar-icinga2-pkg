@@ -1,4 +1,4 @@
-Ansible Role: Icinga2
+Ansible Role: icinga2(pkg)
 ================================================================================
 Install Icinga2 and nagios plugins from a package at CentOS 7 and build icinga2
 as an Agent-Less monitoring environment.
