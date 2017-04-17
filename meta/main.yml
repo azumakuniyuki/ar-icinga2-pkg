@@ -2,7 +2,7 @@ galaxy_info:
   author: azumakuniyuki
   description: Install and configure Icinga2
   company: Cubicroot Co. Ltd.
-  https://github.com/azumakuniyuki/ar-icinga2-pkg/issues
+  issue_tracker_url: https://github.com/azumakuniyuki/ar-icinga2-pkg/issues
   license: BSD
   min_ansible_version: 2.0
   platforms:
