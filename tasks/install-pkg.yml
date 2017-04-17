@@ -7,6 +7,28 @@
 #                 |___/             \_\_|        |___/_/                            
 # install-pkg
 - block:
+    - name: install-pkg | RedHat | Development tools should be installed
+      yum:
+        name:  "{{ item }}"
+        state: "present"
+      with_items:
+        - 'autoconf'
+        - 'automake'
+        - 'gcc'
+        - 'gcc-c++'
+        - 'gettext'
+        - 'gettext-devel'
+        - 'git'
+        - 'ncurses'
+        - 'ncurses-devel'
+        - 'openssl-devel'
+        - 'patch'
+        - 'pcre'
+        - 'pcre-devel'
+        - 'perl-core'
+        - 'readline'
+        - 'readline-devel'
+
     - name: install-pkg | EPEL repository should be installed
       yum: name=epel-release state=present
 
