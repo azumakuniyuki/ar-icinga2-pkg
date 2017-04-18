@@ -36,7 +36,8 @@
 
     - name: install-pkg | icinga.key should be imported
       rpm_key:
-        key: "http://packages.icinga.org/icinga.key state=present"
+        key:   "http://packages.icinga.org/icinga.key"
+        state: "present"
 
     - name: install-pkg | ICINGA-release.repo should be imported
       shell: >
