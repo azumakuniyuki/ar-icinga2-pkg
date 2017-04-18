@@ -10,15 +10,15 @@ icinga2:
   enabled: true
   started: true
   contact:
-    useragent: hostmaster@example.com
+    useragent: "hostmaster@example.com"
   nodes:
-    - name: 127.0.0.1
-      file: 
-        - app
-        - commands
-        - downtimes
-        - groups
-        - hosts
-        - services
-        - users
+    - name: "127.0.0.1"
+      file:
+        - "app"
+        - "commands"
+        - "downtimes"
+        - "groups"
+        - "hosts"
+        - "services"
+        - "users"
 

@@ -8,9 +8,14 @@
 - block:
     - name: install-pkg | PostgreSQL modules should be installed
       when: icinga2.backend == "pgsql"
-      yum: name=icinga2-ido-pgsql state=present
+      yum:
+        name:  "icinga2-ido-pgsql"
+        state: "present"
 
     - name: install-pkg | MySQL modules should be installed
       when: icinga2.backend == "mysql"
-      yum: name=icinga2-ido-mysql state=present
+      yum:
+        name:  "icinga2-ido-mysql"
+        state: "present"
   when: ansible_os_family == "RedHat"
+

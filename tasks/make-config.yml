@@ -16,76 +16,70 @@
   notify: Restart Icinga2
   shell: icinga2 feature enable {{ item }}
   with_items:
-    - command
-    - livestatus
-    - compatlog
-    - perfdata
-    - statusdata
-    - syslog
+    - "command"
+    - "livestatus"
+    - "compatlog"
+    - "perfdata"
+    - "statusdata"
+    - "syslog"
 
 - name: make-config | Files in /etc/icinga2 should be deployed
   notify: Restart Icinga2
   template:
-    src:  etc/icinga2/{{ item }}.conf.j2
-    dest: /etc/icinga2/{{ item }}.conf
+    src:   "etc/icinga2/{{ item }}.conf.j2"
+    dest:  "/etc/icinga2/{{ item }}.conf"
   with_items:
-    - constants
+    - "constants"
 
 - name: make-config | Files in /etc/icinga2/scripts should be deployed
   notify: Restart Icinga2
   template:
-    src:  etc/icinga2/scripts/{{ item }}.j2
-    dest: /etc/icinga2/scripts/{{ item }}
-    mode: 0755
-    owner: root
+    src:   "etc/icinga2/scripts/{{ item }}.j2"
+    dest:  "/etc/icinga2/scripts/{{ item }}"
+    mode:  "0755"
+    owner: "root"
   with_items:
-    - send-service-alert-email
+    - "send-service-alert-email"
 
 - name: make-config | Files in /etc/icinga2/conf.d should be deployed
   notify: Restart Icinga2
   template:
-    src:  etc/icinga2/conf.d/{{ item }}.conf.j2
-    dest: /etc/icinga2/conf.d/{{ item }}.conf
+    src:   "etc/icinga2/conf.d/{{ item }}.conf.j2"
+    dest:  "/etc/icinga2/conf.d/{{ item }}.conf"
   with_items:
-    - hosts
-    - commands
-    - services
-    - templates 
-    - timeperiods
-    - notifications
+    - "hosts"
+    - "commands"
+    - "services"
+    - "templates" 
+    - "timeperiods"
+    - "notifications"
 
 - name: make-config | /etc/icinga2/conf.d/nodes should be created
   file:
-    path: /etc/icinga2/conf.d/nodes
-    mode: 0750
-    owner: icinga
-    group: icinga
-    state: directory
+    path:  "/etc/icinga2/conf.d/nodes"
+    mode:  "0750"
+    owner: "icinga"
+    group: "icinga"
+    state: "directory"
 
 - name: make-config | Directories in /etc/icinga2/conf.d/nodes should be exist
   file:
-    path: /etc/icinga2/conf.d/nodes/{{ item.name }}
-    mode: 0750
-    owner: icinga
-    group: icinga
-    state: directory
+    path:  "/etc/icinga2/conf.d/nodes/{{ item.name }}"
+    mode:  "0750"
+    owner: "icinga"
+    group: "icinga"
+    state: "directory"
   with_items: "{{ icinga2.nodes }}"
 
 - name: make-config | Files in /etc/icinga2/conf.d/nodes should be deployed
   notify: Restart Icinga2
   template:
-    src:   etc/icinga2/conf.d/nodes/{{ item.0.name }}/{{ item.1 }}.conf.j2
-    dest: /etc/icinga2/conf.d/nodes/{{ item.0.name }}/{{ item.1 }}.conf
-    mode: 0640
-    owner: icinga
-    group: icinga
+    src:   "etc/icinga2/conf.d/nodes/{{ item.0.name }}/{{ item.1 }}.conf.j2"
+    dest:  "/etc/icinga2/conf.d/nodes/{{ item.0.name }}/{{ item.1 }}.conf"
+    mode:  "0640"
+    owner: "icinga"
+    group: "icinga"
   with_subelements: 
     - "{{ icinga2.nodes }}"
-    - 'file'
-
-
-
-
-
-
+    - "file"
 

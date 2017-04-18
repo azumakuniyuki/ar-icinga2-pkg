@@ -7,13 +7,19 @@
 # boot-daemon
 - name: boot-daemon | icinga2 daemon should be enabled
   when: icinga2.enabled == true
-  service: name=icinga2 enabled=yes
+  service:
+    name:    "icinga2"
+    enabled: "yes"
 
 - name: boot-daemon | icinga2 daemon should be disabled
   when: icinga2.enabled == false
-  service: name=icinga2 enabled=no
+  service:
+    name:    "icinga2"
+    enabled: "no"
 
 - name: boot-daemon | icinga2 daemon should be started
   when: icinga2.started == true
-  service: name=icinga2 state=started
+  service:
+    name:  "icinga2"
+    state: "started"
 
