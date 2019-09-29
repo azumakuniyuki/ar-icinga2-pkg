@@ -9,25 +9,24 @@
 - block:
     - name: install-pkg | RedHat | Development tools should be installed
       yum:
-        name:  "{{ item }}"
         state: "present"
-      with_items:
-        - "autoconf"
-        - "automake"
-        - "gcc"
-        - "gcc-c++"
-        - "gettext"
-        - "gettext-devel"
-        - "git"
-        - "ncurses"
-        - "ncurses-devel"
-        - "openssl-devel"
-        - "patch"
-        - "pcre"
-        - "pcre-devel"
-        - "perl-core"
-        - "readline"
-        - "readline-devel"
+        name:
+          - "autoconf"
+          - "automake"
+          - "gcc"
+          - "gcc-c++"
+          - "gettext"
+          - "gettext-devel"
+          - "git"
+          - "ncurses"
+          - "ncurses-devel"
+          - "openssl-devel"
+          - "patch"
+          - "pcre"
+          - "pcre-devel"
+          - "perl-core"
+          - "readline"
+          - "readline-devel"
 
     - name: install-pkg | EPEL repository should be installed
       yum:
@@ -48,12 +47,11 @@
 
     - name: install-pkg | Icinga2 and related packages should be installed
       yum:
-        name:  "{{ item }}"
         state: "present"
-      with_items:
-        - "icinga2"
-        - "nagios-plugins-all"
-        - "nagios-plugins-nrpe"
+        name:
+          - "icinga2"
+          - "nagios-plugins-all"
+          - "nagios-plugins-nrpe"
 
     # http://docs.ansible.com/ansible/expect_module.html
     - name: install-pkg | Python egg for the expect module should be installed
